@@ -25,13 +25,14 @@ def get_sales_data():
         print("Data should be six number, separate by commas.")
         print("Example: 10,20,30,40,50,60\n")
 
-        data_str = input("Enter your data here:")
+        data_str = input("Enter your data here:\n")
 
         sales_data = data_str.split(",")
 
         if validate_data(sales_data):
             print("Data is valid!")
             break
+    return sales_data
 
 def validate_data(values):
     """
@@ -79,7 +80,7 @@ def update_worksheet(data, worksheet):
     worksheet_to_update.append_row(data)
     print(f"{worksheet} worksheet updated successfully\n")
 
-def calculate_surplus_data(sale_row):
+def calculate_surplus_data(sales_row):
     """
     Compare sales with stock and calculate the surplus for each item type.
 
@@ -129,7 +130,13 @@ def calculate_stock_data(data):
         new_stock_data.append(round(stock_num))
 
     return new_stock_data
-
+def get_stock_values(data):
+    """
+    Show the user number of sandwiches to make for the next market
+    """
+    headings = SHEET.worksheet("stock").row_values(1)
+    return {heading:value for heading, value in zip(headings, data)}
+  
 
 def main():
     """
@@ -143,6 +150,8 @@ def main():
     sales_columns = get_last_5_entries_sales()
     stock_data = calculate_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
+    stock_values = get_stock_values(stock_data)
+    print(stock_values)
 
 
 print("welcome to Love Sandwiches Data Automation")
