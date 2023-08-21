@@ -93,7 +93,7 @@ def calculate_surplus_data(sales_row):
     stock_row = stock[-1]
     
     surplus_data = []
-    for stock, sales in zip(stock_row, sale_row):
+    for stock, sales in zip(stock_row, sales_row):
         surplus = int(stock) - sales
         surplus_data.append(surplus)
     
